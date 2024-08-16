@@ -416,3 +416,6 @@ From local cloned repo root:
 This window should popup:
 ![hello](./imgs/omniverse_startup.png)
 
+Login using following credentials:
+
+
