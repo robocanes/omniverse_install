@@ -87,3 +87,24 @@ From output:
 CUDA Version: 12.5 
 ```
 
+Follow the instructions for the corresponding CUDA version CUDA Toolkit Install page [here](https://developer.nvidia.com/cuda-12-4-0-download-archive?target_os=Linux&target_arch=x86_64&Distribution=Ubuntu&target_version=20.04&target_type=deb_local).
+
+Add the following lines to your shell rc file.
+```
+export PATH=/usr/local/cuda-12.4/bin${PATH:+:${PATH}}
+export LD_LIBRARY_PATH=/usr/local/cuda-12.4/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+```
+
+Verify CUDA Toolkit install:
+```
+nvcc --version
+```
+
+Sample Output:
+```
+nvcc: NVIDIA (R) Cuda compiler driver
+Copyright (c) 2005-2024 NVIDIA Corporation
+Built on Tue_Feb_27_16:19:38_PST_2024
+Cuda compilation tools, release 12.4, V12.4.99
+Build cuda_12.4.r12.4/compiler.33961263_0
+```
