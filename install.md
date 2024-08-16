@@ -414,8 +414,50 @@ From local cloned repo root:
 5. `./omniverse-launcher-linux.AppImage`
 
 This window should popup:
-![hello](./imgs/omniverse_startup.png)
+![](./imgs/omniverse_startup.png)
 
 Login using following credentials:
+![](./imgs/omniverse_user_login.png)
 
+Click on `LOG IN` which opens the following browser page:
+![](./imgs/browser_nvidia_login.png)
+
+Click on `More Login Options`:
+![](./imgs/nvidia_login_google.png)
+
+Click on `Log In With Google`:
+![](./imgs/google_login.png)
+
+Click `Next` and input the following password:
+![](./imgs/google_pwd.png)
+
+Click `Next` and the following page will popup:
+![](./imgs/open_omniverse.png)
+
+Click `Open omniverse-launcher` and the following should show up in the original omniverse launcher window:
+![](./imgs/omniverse_logged_in.png)
+
+Click on `Nucleus`:
+![](./imgs/nucleus.png)
+
+Click on `Add Local Nucleus Service`:
+![](./imgs/nucleus_data_path.png)
+
+Click `NEXT` and input the same string for all input fields `csc398f24`:
+![](./imgs/nucleus_setup.png)
+
+Nucleus service should now download and install:
+![](./imgs/nucleus_download.png)
+
+Finished Nucleus service download and install:
+![](./imgs/nucleus_installed.png)
+
+Click on `Exchange` and search for `isaac sim`:
+![](./imgs/exchange_isaac_sim.png)
+
+Under `Apps`, click `ISAAC SIM`:
+![](./imgs/isaac_sim_install.png)
+
+Set `Release` and `2023.1.1`, and click `INSTALL`. Isaac Sim should now commence download and install (this will take a while):
+![](./imgs/isaac_sim_download.png)
 
