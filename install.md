@@ -88,7 +88,7 @@ From output:
 CUDA Version: 12.5 
 ```
 
-Follow the instructions for the corresponding CUDA version CUDA Toolkit Install page [here]([https://developer.nvidia.com/cuda-12-4-0-download-archive?target_os=Linux&target_arch=x86_64&Distribution=Ubuntu&target_version=20.04&target_type=deb_local](https://developer.nvidia.com/cuda-12-5-0-download-archive)).
+Follow the instructions for the corresponding CUDA version CUDA Toolkit Install page by NVIDIA. The page for CUDA Toolkit 12.5 is [here](https://developer.nvidia.com/cuda-12-5-0-download-archive).
 
 Add the following lines to your shell rc file.
 ```
