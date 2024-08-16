@@ -403,3 +403,16 @@ roslaunch hsrb_gazebo_launch hsrb_empty_world.launch
 
 # Install NVIDIA Isaac Simulator
 
+## Install NVIDIA Omniverse
+
+From local cloned repo root:
+
+1. `cd omniverse`
+2. `./omniverse_construct`
+3. `cd launcher`
+4. `unzip omniverse-launcher-linux.AppImage.zip`
+5. `./omniverse-launcher-linux.AppImage`
+
+This window should popup:
+![hello](./imgs/omniverse_startup.png)
+
