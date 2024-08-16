@@ -109,3 +109,23 @@ Built on Wed_Apr_17_19:19:55_PDT_2024
 Cuda compilation tools, release 12.5, V12.5.40
 Build cuda_12.5.r12.5/compiler.34177558_0
 ```
+
+## Install cuDNN 
+
+Follow the instructions from the cuDNN install page [here](https://developer.nvidia.com/cudnn-downloads).
+
+Verify cuDNN Installation:
+```
+cat /usr/include/x86_64-linux-gnu/cudnn_v*.h | grep CUDNN_MAJOR -A 2
+```
+
+Sample Output:
+```
+#define CUDNN_MAJOR 9
+#define CUDNN_MINOR 2
+#define CUDNN_PATCHLEVEL 0
+--
+#define CUDNN_VERSION (CUDNN_MAJOR * 10000 + CUDNN_MINOR * 100 + CUDNN_PATCHLEVEL)
+
+/* cannot use constexpr here since this is a C-only file */
+```
