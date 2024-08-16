@@ -527,6 +527,11 @@ Pull all `hsr-omniverse` submodules:
 git submodule update --init --recursive --progress
 ```
 
+`catkin_make` and source:
+```
+c;s
+```
+
 Run sample scene:
 ```
 ./isaac_sim_hsr_start.sh
