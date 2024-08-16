@@ -1,3 +1,5 @@
+# Dependency Packages
+
 This file contains all the instruction steps for installing dependency packages for isaac sim.
 
 ## Install nvidia-ubuntu drivers
@@ -398,3 +400,6 @@ Verify HSR simulator install:
 ```zsh
 roslaunch hsrb_gazebo_launch hsrb_empty_world.launch 
 ```
+
+# Install NVIDIA Isaac Simulator
+
