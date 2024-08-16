@@ -369,6 +369,7 @@ alias s='source ./devel/setup.zsh'
 ```
 source ~/.zshrc
 ```
+## Miscellaneous
 
 Some additional ENV vars that may be important depending on your use:
 ```
@@ -389,6 +390,8 @@ export AZURE_API_KEY=''
 API keys need to be filled in. Speak with Professor Visser, if needed.
 
 **NOTE**: Don't post plaintext keys online (e.g. pushed in a commit, even if private). They will be caught by github webscrapers and you will need to replace the resource key. 
+
+## Final verification
 
 Verify HSR simulator install:
 
