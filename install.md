@@ -129,3 +129,51 @@ Sample Output:
 
 /* cannot use constexpr here since this is a C-only file */
 ```
+
+## Install ROS 1
+
+1. Update, Upgrade and Autoremove
+   - `sudo apt-get update`: updates list of available packages and their versions, but does not install or upgrade any packages.
+   - `sudo apt-get upgrade`: installs newer versions of currently available packages. After updating the package lists, the package manager then knows about available updates for installed software. Thus, this is why one `updates` and THEN `upgrades`. 
+   - `sudo apt-get autoremove`: removes dependencies that were installed with applications which are no longer required by any other package/applications on the system. 
+   - `&&`: given `command one && command two`, `command two` will only run if `command one` successfully runs. Applicable to all Posix shell, not only `bash`. 
+   ```
+   sudo apt-get update && sudo apt-get upgrade && sudo apt-get autoremove
+   ```
+
+
+
+2. Setup sources list
+
+Setup computer to accept software packages from packages.ros.org.
+
+```
+sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
+```
+
+3. Setup keys
+```
+sudo apt install curl # if you haven't already installed curl
+```
+
+```
+curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
+```
+
+```
+sudo apt update
+```
+
+4. Install full ROS1
+```
+sudo apt install ros-noetic-desktop-full
+```
+
+5. Install basic dependencies:
+```
+sudo apt install python3-rosdep python3-rosinstall python3-rosinstall-generator python3-wstool build-essential
+```
+
+```
+sudo apt install ros-noetic-ros-numpy
+```
