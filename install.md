@@ -478,5 +478,57 @@ Click `Isaac Examples > Multi-Robot > RoboFactory`:
 In `RoboFactory`, click `LOAD` and when loaded, click `START STACKING`:
 ![](./imgs/isaac_sim_robofactory_stacking.png)
 
+Example Run:
 ![](./imgs/isaac_sim_stacking.gif)
+
+# RoboCanes Isaac Sim Software 
+
+Default location install for NVIDIA Isaac Sim: 
+
+```
+~/.local/share/ov/pkg/isaac-sim-2023.1.1
+```
+
+Default location install for NVIDIA nucleus service:
+
+```
+~/.local/share/ov/pkg/nucleus-workstation-2023.2.3
+```
+
+
+Go to NVIDIA Isaac Sim root:
+```
+cd ~/.local/share/ov/pkg/isaac-sim-2023.1.1
+```
+
+Install package dependencies:
+```
+sudo apt install ros-noetic-panda-moveit-config ros-noetic-franka-hw libgflags-dev ros-noetic-rviz-imu-plugin ros-noetic-map-server ros-noetic-dwa-local-planner ros-noetic-move-base
+```
+
+Install `rospkg` for isaac sim python:
+
+```
+./python.sh -m pip install rospkg
+```
+
+Clone `hsr_robocanes_omniverse` repo:
+```
+git clone https://github.com/robocanes/hsr_robocanes_omniverse.git
+```
+
+Go to `hsr-omniverse` root:
+```
+cd ~/.local/share/ov/pkg/isaac-sim-2023.1.1/hsr_robocanes_omniverse
+```
+
+Pull all `hsr-omniverse` submodules:
+```
+git submodule update --init --recursive --progress
+```
+
+Run sample scene:
+```
+./isaac_sim_hsr_start.sh
+```
 
