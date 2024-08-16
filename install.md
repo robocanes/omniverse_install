@@ -177,3 +177,221 @@ sudo apt install python3-rosdep python3-rosinstall python3-rosinstall-generator 
 ```
 sudo apt install ros-noetic-ros-numpy
 ```
+
+## Install TMC HSR Software
+
+Adapted from [hsr.io](https://docs.hsr.io/hsrb_user_manual_en/howto/pc_install.html#id2) hsrb user manual.
+
+```sh
+sudo apt-get update && sudo apt-get upgrade
+```
+
+Install simulator environment of the HSR:
+
+```sh
+sudo sh -c 'echo "deb [arch=amd64] https://hsr-user:jD3k4G2e@packages.hsr.io/ros/ubuntu `lsb_release -cs` main" > /etc/apt/sources.list.d/tmc.list'
+sudo sh -c 'echo "deb [arch=amd64] https://hsr-user:jD3k4G2e@packages.hsr.io/tmc/ubuntu `lsb_release -cs` multiverse main" >> /etc/apt/sources.list.d/tmc.list'
+sudo sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_release -cs` main" > /etc/apt/sources.list.d/gazebo-stable.list'
+wget https://hsr-user:jD3k4G2e@packages.hsr.io/tmc.key -O - | sudo apt-key add -
+wget https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc -O - | sudo apt-key add -
+wget https://packages.osrfoundation.org/gazebo.key -O - | sudo apt-key add -
+sudo sh -c 'mkdir -p /etc/apt/auth.conf.d'
+sudo sh -c '/bin/echo -e "machine packages.hsr.io\nlogin hsr-user\npassword jD3k4G2e" >/etc/apt/auth.conf.d/auth.conf'
+sudo sh -c '/bin/echo -e "Package: ros-noetic-laser-ortho-projector\nPin: version 0.3.3*\nPin-Priority: 1001\n\nPackage: ros-noetic-laser-scan-matcher\nPin: version 0.3.3*\nPin-Priority: 1001\n\nPackage: ros-noetic-laser-scan-sparsifier\nPin: version 0.3.3*\nPin-Priority: 1001\n\nPackage: ros-noetic-laser-scan-splitter\nPin: version 0.3.3*\nPin-Priority: 1001\n\nPackage: ros-noetic-ncd-parser\nPin: version 0.3.3*\nPin-Priority: 1001\n\nPackage: ros-noetic-polar-scan-matcher\nPin: version 0.3.3*\nPin-Priority: 1001\n\nPackage: ros-noetic-scan-to-cloud-converter\nPin: version 0.3.3*\nPin-Priority: 1001\n\nPackage: ros-noetic-scan-tools\nPin: version 0.3.3*\nPin-Priority: 1001" > /etc/apt/preferences'
+sudo apt-get update
+sudo apt-get install ros-noetic-tmc-desktop-full
+```
+
+Restart terminal window for modification to take place.
+
+### bash
+
+Add to `~/.bashrc`:
+```bash
+vim ~/.bashrc
+```
+
+```bash
+alias python='python3'
+
+# ROS Material
+show_first_up_device() {
+    local up_device
+
+    # Check for UP Ethernet devices
+    up_device=$(ip link show | grep -E '^[0-9]+: en[[:alnum:]]+:' | grep -E 'state UP' | sed -E 's/^[0-9]+: ([^:]+):.*$/\1/' | head -n 1)
+
+    if [[ -n $up_device ]]; then
+        echo $up_device
+        return 0
+    fi
+
+    # Check for UP Wi-Fi devices
+    up_device=$(ip link show | grep -E '^[0-9]+: wl[[:alnum:]]+:' | grep -E 'state UP' | sed -E 's/^[0-9]+: ([^:]+):.*$/\1/' | head -n 1)
+
+    if [[ -n $up_device ]]; then
+        echo $up_device
+        return 0
+    fi
+
+    echo 'lo'
+
+    # No UP Ethernet or Wi-Fi device found
+    return 1
+}
+
+network_if=$(show_first_up_device)
+
+# check_internet_ping() {
+#     ping -c 1 www.google.com > /dev/null 2>&1
+#     return $?
+# }
+
+# if check_internet_ping; then
+#     network_if=$(show_first_up_device)
+
+#     # if [[ $? -eq 1 ]]; then
+#     #     # Loopback for offline.
+#     #     network_if=lo
+#     # fi
+# else
+#     # Loopback for offline.
+#     network_if=lo
+# fi
+
+echo "ROS using network device: $network_if"
+
+if [ -e /opt/ros/noetic/setup.bash ] ; then
+    source /opt/ros/noetic/setup.bash
+else
+    echo "ROS packages are not installed."
+fi
+
+export TARGET_IP=$(LANG=C /sbin/ip address show $network_if | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*')
+if [ -z "$TARGET_IP" ] ; then
+    echo "ROS_IP is not set."
+else
+    export ROS_IP=$TARGET_IP
+fi
+
+export ROS_HOME=~/.ros
+alias sim_mode='export ROS_MASTER_URI=http://localhost:11311 export PS1="\[\033[44;1;37m\]<local>\[\033[0m\]\w$ "'
+alias sm='sim_mode'
+alias hsrb_mode='export ROS_MASTER_URI=http://hsrb.local:11311 export PS1="\[\033[41;1;37m\]<hsrb>\[\033[0m\]\w$ "'
+alias hm='hsrb_mode'
+alias c='catkin_make'
+alias s='source ./devel/setup.bash'
+```
+
+```
+source ~/.bashrc
+```
+
+### zsh
+
+Add to `~/.zshrc`:
+```zsh
+vim ~/.zshrc
+```
+
+```zsh
+alias python='python3'
+
+# ROS Material
+show_first_up_device() {
+    local up_device
+
+    # Check for UP Ethernet devices
+    up_device=$(ip link show | grep -E '^[0-9]+: en[[:alnum:]]+:' | grep -E 'state UP' | sed -E 's/^[0-9]+: ([^:]+):.*$/\1/' | head -n 1)
+
+    if [[ -n $up_device ]]; then
+        echo $up_device
+        return 0
+    fi
+
+    # Check for UP Wi-Fi devices
+    up_device=$(ip link show | grep -E '^[0-9]+: wl[[:alnum:]]+:' | grep -E 'state UP' | sed -E 's/^[0-9]+: ([^:]+):.*$/\1/' | head -n 1)
+
+    if [[ -n $up_device ]]; then
+        echo $up_device
+        return 0
+    fi
+
+    echo 'lo'
+
+    # No UP Ethernet or Wi-Fi device found
+    return 1
+}
+
+network_if=$(show_first_up_device)
+
+# check_internet_ping() {
+#     ping -c 1 www.google.com > /dev/null 2>&1
+#     return $?
+# }
+
+# if check_internet_ping; then
+#     network_if=$(show_first_up_device)
+
+#     # if [[ $? -eq 1 ]]; then
+#     #     # Loopback for offline.
+#     #     network_if=lo
+#     # fi
+# else
+#     # Loopback for offline.
+#     network_if=lo
+# fi
+
+echo "ROS using network device: $network_if"
+
+if [ -e /opt/ros/noetic/setup.zsh ] ; then
+    source /opt/ros/noetic/setup.zsh
+else
+    echo "ROS packages are not installed."
+fi
+
+export TARGET_IP=$(LANG=C /sbin/ip address show $network_if | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*')
+if [ -z "$TARGET_IP" ] ; then
+    echo "ROS_IP is not set."
+else
+    export ROS_IP=$TARGET_IP
+fi
+
+export ROS_HOME=~/.ros
+alias sim_mode='export ROS_MASTER_URI=http://localhost:11311 export PS1="\[\033[44;1;37m\]<local>\[\033[0m\]\w$ "'
+alias sm='sim_mode'
+alias hsrb_mode='export ROS_MASTER_URI=http://hsrb.local:11311 export PS1="\[\033[41;1;37m\]<hsrb>\[\033[0m\]\w$ "'
+alias hm='hsrb_mode'
+alias c='catkin_make'
+alias s='source ./devel/setup.zsh'
+```
+
+```
+source ~/.zshrc
+```
+
+Some additional ENV vars that may be important depending on your use:
+```
+# CUDA Toolkit
+export PATH=/usr/local/cuda-12.4/bin${PATH:+:${PATH}}
+export LD_LIBRARY_PATH=/usr/local/cuda-12.4/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+
+# OPENPOSE
+export OPENPOSE_PATH=$HOME/gitwork/hsr_robocanes/src/openpose
+
+# OPENAI
+export OPENAI_API_KEY=''
+
+# AZURE
+export AZURE_API_KEY=''
+```
+
+API keys need to be filled in. Speak with Professor Visser, if needed.
+
+**NOTE**: Don't post plaintext keys online (e.g. pushed in a commit, even if private). They will be caught by github webscrapers and you will need to replace the resource key. 
+
+Verify HSR simulator install:
+
+```zsh
+roslaunch hsrb_gazebo_launch hsrb_empty_world.launch 
+```
