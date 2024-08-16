@@ -461,3 +461,19 @@ Under `Apps`, click `ISAAC SIM`:
 Set `Release` and `2023.1.1`, and click `INSTALL`. Isaac Sim should now commence download and install (this will take a while):
 ![](./imgs/isaac_sim_download.png)
 
+Once installed, close the `warm-up cache` terminal window and launch NVIDIA Isaac Sim:
+![](./imgs/isaac_sim_launch.png)
+
+Click `Isaac Sim` in app selector, leave default options, and click `START`:
+![](./imgs/isaac_sim_app_selector.png)
+
+For first time boot up, simply wait until stage has loaded (this takes a while):
+![](./imgs/isaac_sim_stage.png)
+
+Click `Isaac Examples > Multi-Robot > RoboFactory`:
+![](./imgs/isaac_sim_robofactory_load.png)
+
+In `RoboFactory`, click `LOAD` and when loaded, click `START STACKING`:
+![](./imgs/isaac_sim_robofactory_stacking.png)
+
+
