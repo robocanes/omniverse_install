@@ -1,3 +1,5 @@
+Author: Christopher Duarte
+
 # Dependency Packages
 
 This file contains all the instruction steps for installing dependency packages for isaac sim.
@@ -476,4 +478,5 @@ Click `Isaac Examples > Multi-Robot > RoboFactory`:
 In `RoboFactory`, click `LOAD` and when loaded, click `START STACKING`:
 ![](./imgs/isaac_sim_robofactory_stacking.png)
 
+![](./imgs/isaac_sim_stacking.gif)
 
