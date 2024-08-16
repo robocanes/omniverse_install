@@ -105,7 +105,7 @@ Sample Output:
 ```
 nvcc: NVIDIA (R) Cuda compiler driver
 Copyright (c) 2005-2024 NVIDIA Corporation
-Built on Tue_Feb_27_16:19:38_PST_2024
-Cuda compilation tools, release 12.4, V12.4.99
-Build cuda_12.4.r12.4/compiler.33961263_0
+Built on Wed_Apr_17_19:19:55_PDT_2024
+Cuda compilation tools, release 12.5, V12.5.40
+Build cuda_12.5.r12.5/compiler.34177558_0
 ```
