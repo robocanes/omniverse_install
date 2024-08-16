@@ -517,7 +517,7 @@ Clone `hsr_robocanes_omniverse` repo:
 git clone https://github.com/robocanes/hsr_robocanes_omniverse.git
 ```
 
-Go to `hsr-omniverse` root:
+Go to `hsr_robocanes_omniverse` root:
 ```
 cd ~/.local/share/ov/pkg/isaac-sim-2023.1.1/hsr_robocanes_omniverse
 ```
