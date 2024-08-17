@@ -177,11 +177,11 @@ sudo apt install ros-noetic-desktop-full -y
 
 5. Install basic dependencies:
 ```
-sudo apt install python3-rosdep python3-rosinstall python3-rosinstall-generator python3-wstool build-essential
+sudo apt install python3-rosdep python3-rosinstall python3-rosinstall-generator python3-wstool build-essential -y
 ```
 
 ```
-sudo apt install ros-noetic-ros-numpy
+sudo apt install ros-noetic-ros-numpy -y
 ```
 
 ## Install TMC HSR Software
