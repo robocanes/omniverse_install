@@ -172,7 +172,7 @@ sudo apt update
 
 4. Install full ROS1
 ```
-sudo apt install ros-noetic-desktop-full
+sudo apt install ros-noetic-desktop-full -y
 ```
 
 5. Install basic dependencies:
