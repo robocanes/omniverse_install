@@ -213,3 +213,9 @@ RUN chmod +x ${WORK_DIR}/code.sh
 RUN chmod +x ${WORK_DIR}/firefox.sh
 
 WORKDIR ${WORK_DIR}
+
+# Chris Startup cmds
+COPY scripts/entrypoint.sh ${WORK_DIR}
+RUN chmod +x ${WORK_DIR}/entrypoint.sh
+
+ENTRYPOINT /isaac-sim/entrypoint.sh
