@@ -1,5 +1,15 @@
 Author: Christopher Duarte
 
+Here are the installation instructions for the class CSC398 for the lab computers. Small changes might be necessary if installed somewhere else. Please note that we disregard an *upgrade* of the OS. 
+
+## Before installing anything
+Create local directories on each machine under '/home/local'
+```
+sudo mkdir -p /home/local/csc398/cache
+sudo mkdir -p /home/local/csc398/local/share/ov/pkg
+sudo mkdir -p /home/local/csc398/local/share/ov/data
+```
+
 # Dependency Packages
 
 This file contains all the instruction steps for installing dependency packages for isaac sim.
@@ -136,13 +146,13 @@ Sample Output:
 
 ## Install ROS 1
 
-1. Update, Upgrade and Autoremove
+1. Update and Autoremove
    - `sudo apt-get update`: updates list of available packages and their versions, but does not install or upgrade any packages.
-   - `sudo apt-get upgrade`: installs newer versions of currently available packages. After updating the package lists, the package manager then knows about available updates for installed software. Thus, this is why one `updates` and THEN `upgrades`. 
+knows about available updates for installed software. Thus, this is why one `updates` and THEN `upgrades`. 
    - `sudo apt-get autoremove`: removes dependencies that were installed with applications which are no longer required by any other package/applications on the system. 
    - `&&`: given `command one && command two`, `command two` will only run if `command one` successfully runs. Applicable to all Posix shell, not only `bash`. 
    ```
-   sudo apt-get update && sudo apt-get upgrade && sudo apt-get autoremove
+   sudo apt-get update && sudo apt-get autoremove
    ```
 
 
@@ -170,16 +180,16 @@ sudo apt update
 
 4. Install full ROS1
 ```
-sudo apt install ros-noetic-desktop-full
+sudo apt install ros-noetic-desktop-full -y
 ```
 
 5. Install basic dependencies:
 ```
-sudo apt install python3-rosdep python3-rosinstall python3-rosinstall-generator python3-wstool build-essential
+sudo apt install python3-rosdep python3-rosinstall python3-rosinstall-generator python3-wstool build-essential -y
 ```
 
 ```
-sudo apt install ros-noetic-ros-numpy
+sudo apt install ros-noetic-ros-numpy -y
 ```
 
 ## Install TMC HSR Software
@@ -187,7 +197,7 @@ sudo apt install ros-noetic-ros-numpy
 Adapted from [hsr.io](https://docs.hsr.io/hsrb_user_manual_en/howto/pc_install.html#id2) hsrb user manual.
 
 ```sh
-sudo apt-get update && sudo apt-get upgrade
+sudo apt-get update 
 ```
 
 Install simulator environment of the HSR:
@@ -203,7 +213,7 @@ sudo sh -c 'mkdir -p /etc/apt/auth.conf.d'
 sudo sh -c '/bin/echo -e "machine packages.hsr.io\nlogin hsr-user\npassword jD3k4G2e" >/etc/apt/auth.conf.d/auth.conf'
 sudo sh -c '/bin/echo -e "Package: ros-noetic-laser-ortho-projector\nPin: version 0.3.3*\nPin-Priority: 1001\n\nPackage: ros-noetic-laser-scan-matcher\nPin: version 0.3.3*\nPin-Priority: 1001\n\nPackage: ros-noetic-laser-scan-sparsifier\nPin: version 0.3.3*\nPin-Priority: 1001\n\nPackage: ros-noetic-laser-scan-splitter\nPin: version 0.3.3*\nPin-Priority: 1001\n\nPackage: ros-noetic-ncd-parser\nPin: version 0.3.3*\nPin-Priority: 1001\n\nPackage: ros-noetic-polar-scan-matcher\nPin: version 0.3.3*\nPin-Priority: 1001\n\nPackage: ros-noetic-scan-to-cloud-converter\nPin: version 0.3.3*\nPin-Priority: 1001\n\nPackage: ros-noetic-scan-tools\nPin: version 0.3.3*\nPin-Priority: 1001" > /etc/apt/preferences'
 sudo apt-get update
-sudo apt-get install ros-noetic-tmc-desktop-full
+sudo apt-get install ros-noetic-tmc-desktop-full -y
 ```
 
 Restart terminal window for modification to take place.
@@ -263,7 +273,7 @@ network_if=$(show_first_up_device)
 #     network_if=lo
 # fi
 
-echo "ROS using network device: $network_if"
+# echo "ROS using network device: $network_if"
 
 if [ -e /opt/ros/noetic/setup.bash ] ; then
     source /opt/ros/noetic/setup.bash
@@ -285,6 +295,7 @@ alias hsrb_mode='export ROS_MASTER_URI=http://hsrb.local:11311 export PS1="\[\03
 alias hm='hsrb_mode'
 alias c='catkin_make'
 alias s='source ./devel/setup.bash'
+alias p='rospack profile'
 ```
 
 ```
@@ -346,7 +357,7 @@ network_if=$(show_first_up_device)
 #     network_if=lo
 # fi
 
-echo "ROS using network device: $network_if"
+#echo "ROS using network device: $network_if"
 
 if [ -e /opt/ros/noetic/setup.zsh ] ; then
     source /opt/ros/noetic/setup.zsh
@@ -368,6 +379,7 @@ alias hsrb_mode='export ROS_MASTER_URI=http://hsrb.local:11311 export PS1="\[\03
 alias hm='hsrb_mode'
 alias c='catkin_make'
 alias s='source ./devel/setup.zsh'
+alias p='rospack profile'
 ```
 
 ```
@@ -418,7 +430,7 @@ From local cloned repo root:
 This window should popup:
 ![](./imgs/omniverse_startup.png)
 
-Login using following credentials:
+Login using the following credentials:
 ![](./imgs/omniverse_user_login.png)
 
 Click on `LOG IN` which opens the following browser page:
@@ -486,19 +498,19 @@ Example Run:
 Default location install for NVIDIA Isaac Sim: 
 
 ```
-~/.local/share/ov/pkg/isaac-sim-2023.1.1
+/home/local/csc398/local/share/ov/pkg/isaac-sim-2023.1.1
 ```
 
 Default location install for NVIDIA nucleus service:
 
 ```
-~/.local/share/ov/pkg/nucleus-workstation-2023.2.3
+/home/local/csc398/local/share/ov/pkg/nucleus-workstation-2023.2.3
 ```
 
 
 Go to NVIDIA Isaac Sim root:
 ```
-cd ~/.local/share/ov/pkg/isaac-sim-2023.1.1
+cd /home/local/csc398/local/share/ov/pkg/isaac-sim-2023.1.1
 ```
 
 Install package dependencies:
@@ -519,7 +531,7 @@ git clone https://github.com/robocanes/hsr_robocanes_omniverse.git
 
 Go to `hsr_robocanes_omniverse` root:
 ```
-cd ~/.local/share/ov/pkg/isaac-sim-2023.1.1/hsr_robocanes_omniverse
+cd /home/local/csc398/local/share/ov/pkg/isaac-sim-2023.1.1/hsr_robocanes_omniverse
 ```
 
 Pull all `hsr-omniverse` submodules:
