@@ -2,6 +2,14 @@ Author: Christopher Duarte
 
 Here are the installation instructions for the class CSC398 for the lab computers. Small changes might be necessary if installed somewhere else. Please note that we disregard an *upgrade* of the OS. 
 
+## Before installing anything
+Create local directories on each machine under '/home/local'
+```
+mkdir -p /home/local/csc398/cache
+mkdir -p /home/local/csc398/local/share/ov/pkg
+mkdir -p /home/local/csc398/local/share/ov/data
+```
+
 # Dependency Packages
 
 This file contains all the instruction steps for installing dependency packages for isaac sim.
