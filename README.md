@@ -205,7 +205,7 @@ sudo sh -c 'mkdir -p /etc/apt/auth.conf.d'
 sudo sh -c '/bin/echo -e "machine packages.hsr.io\nlogin hsr-user\npassword jD3k4G2e" >/etc/apt/auth.conf.d/auth.conf'
 sudo sh -c '/bin/echo -e "Package: ros-noetic-laser-ortho-projector\nPin: version 0.3.3*\nPin-Priority: 1001\n\nPackage: ros-noetic-laser-scan-matcher\nPin: version 0.3.3*\nPin-Priority: 1001\n\nPackage: ros-noetic-laser-scan-sparsifier\nPin: version 0.3.3*\nPin-Priority: 1001\n\nPackage: ros-noetic-laser-scan-splitter\nPin: version 0.3.3*\nPin-Priority: 1001\n\nPackage: ros-noetic-ncd-parser\nPin: version 0.3.3*\nPin-Priority: 1001\n\nPackage: ros-noetic-polar-scan-matcher\nPin: version 0.3.3*\nPin-Priority: 1001\n\nPackage: ros-noetic-scan-to-cloud-converter\nPin: version 0.3.3*\nPin-Priority: 1001\n\nPackage: ros-noetic-scan-tools\nPin: version 0.3.3*\nPin-Priority: 1001" > /etc/apt/preferences'
 sudo apt-get update
-sudo apt-get install ros-noetic-tmc-desktop-full
+sudo apt-get install ros-noetic-tmc-desktop-full -y
 ```
 
 Restart terminal window for modification to take place.
@@ -265,7 +265,7 @@ network_if=$(show_first_up_device)
 #     network_if=lo
 # fi
 
-echo "ROS using network device: $network_if"
+# echo "ROS using network device: $network_if"
 
 if [ -e /opt/ros/noetic/setup.bash ] ; then
     source /opt/ros/noetic/setup.bash
@@ -287,6 +287,7 @@ alias hsrb_mode='export ROS_MASTER_URI=http://hsrb.local:11311 export PS1="\[\03
 alias hm='hsrb_mode'
 alias c='catkin_make'
 alias s='source ./devel/setup.bash'
+alias p='rospack profile'
 ```
 
 ```
@@ -348,7 +349,7 @@ network_if=$(show_first_up_device)
 #     network_if=lo
 # fi
 
-echo "ROS using network device: $network_if"
+#echo "ROS using network device: $network_if"
 
 if [ -e /opt/ros/noetic/setup.zsh ] ; then
     source /opt/ros/noetic/setup.zsh
@@ -370,6 +371,7 @@ alias hsrb_mode='export ROS_MASTER_URI=http://hsrb.local:11311 export PS1="\[\03
 alias hm='hsrb_mode'
 alias c='catkin_make'
 alias s='source ./devel/setup.zsh'
+alias p='rospack profile'
 ```
 
 ```
