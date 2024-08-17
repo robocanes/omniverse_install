@@ -5,9 +5,9 @@ Here are the installation instructions for the class CSC398 for the lab computer
 ## Before installing anything
 Create local directories on each machine under '/home/local'
 ```
-mkdir -p /home/local/csc398/cache
-mkdir -p /home/local/csc398/local/share/ov/pkg
-mkdir -p /home/local/csc398/local/share/ov/data
+sudo mkdir -p /home/local/csc398/cache
+sudo mkdir -p /home/local/csc398/local/share/ov/pkg
+sudo mkdir -p /home/local/csc398/local/share/ov/data
 ```
 
 # Dependency Packages
