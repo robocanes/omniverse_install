@@ -1,5 +1,7 @@
 Author: Christopher Duarte
 
+Here are the installation instructions for the class CSC398 for the lab computers. Small changes might be necessary if installed somewhere else.
+
 # Dependency Packages
 
 This file contains all the instruction steps for installing dependency packages for isaac sim.
