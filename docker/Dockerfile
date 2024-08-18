@@ -132,8 +132,10 @@ RUN ln -s exts/omni.isaac.examples/omni/isaac/examples extension_examples
 
 # Chris Additional Stuff
 
-# ARG WORK_DIR=/root
-ARG WORK_DIR=/isaac-sim
+# ARG WORK_DIR=/isaac-sim
+ARG WORK_DIR=/root
+
+WORKDIR ${WORK_DIR}
 
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -212,10 +214,10 @@ COPY scripts/firefox.sh ${WORK_DIR}
 RUN chmod +x ${WORK_DIR}/code.sh
 RUN chmod +x ${WORK_DIR}/firefox.sh
 
-WORKDIR ${WORK_DIR}
-
 # Chris Startup cmds
 COPY scripts/entrypoint.sh ${WORK_DIR}
 RUN chmod +x ${WORK_DIR}/entrypoint.sh
 
-ENTRYPOINT /isaac-sim/entrypoint.sh
+RUN ln -s /isaac-sim ${WORK_DIR}/isaac-sim
+
+ENTRYPOINT /root/entrypoint.sh
