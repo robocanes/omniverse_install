@@ -164,7 +164,13 @@ root@923ff36ee164:~# ls
 code.sh  Documents  entrypoint.sh  firefox.sh  isaac-sim  usr_data
 ```
 
-Run `code.sh` to open a vscode GUI instance in the docker container. Run `firefox.sh` to open a firefox GUI instance in the docker container. `isaac-sim` is a symbolic link to NVIDIA Isaac Sim installation directory. `usr_data` is a mounted volume from the host environment to the docker container for persistent data (effectively, this is where all your data will be stored in between one `./docker_run.sh` and another)
+Run `code.sh` to open a vscode GUI instance in the docker container. 
+
+Run `firefox.sh` to open a firefox GUI instance in the docker container. 
+
+`isaac-sim` is a symbolic link to NVIDIA Isaac Sim installation directory. 
+
+`usr_data` is a mounted volume from the host environment to the docker container for persistent data (effectively, this is where all your data will be stored in between one `./docker_run.sh` and another).
 
 To exit docker container tty:
 ```
