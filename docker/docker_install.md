@@ -112,6 +112,11 @@ docker run --rm --runtime=nvidia --gpus all ubuntu nvidia-smi
 
 ## Install OSRF rocker
 
+This will allow you to use the X11 windowing environment of the host machine:
+```
+pip install rocker
+```
+
 ## Omniverse Isaac Sim Container Deployment
 
 Generate [NGC API Key](https://docs.nvidia.com/ngc/ngc-overview/index.html#generating-api-key).
