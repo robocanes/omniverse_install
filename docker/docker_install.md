@@ -105,6 +105,12 @@ sudo apt-get install -y nvidia-container-toolkit
 sudo systemctl restart docker
 ```
 
+Configure container runtime:
+```
+sudo nvidia-ctk runtime configure --runtime=docker
+sudo systemctl restart docker
+```
+
 Verify NVIDIA Container Toolkit:
 ```
 docker run --rm --runtime=nvidia --gpus all ubuntu nvidia-smi
