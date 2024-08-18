@@ -165,6 +165,11 @@ Run docker build script:
 
 **Note**: This build will take ~20 mins. It includes all the package installs from the root `README.md` (e.g., ROS1, Gazebo, TMC Software Install, and NVIDIA Isaac Sim). Add or remove elements from the `Dockerfile` as needed.
 
+Actual example build time:
+```
+[+] Building 1942.2s (80/80) FINISHED                                                 docker:default
+```
+
 Run docker run script:
 ```
 ./docker_run.sh
