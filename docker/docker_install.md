@@ -131,13 +131,25 @@ Login to NGC before pulling Isaac Sim container.
 ```
 docker login nvcr.io
 ```
-Sample Output:
+Sample Generic Output:
 ```
 Username: $oauthtoken
 Password: <Your NGC API Key>
 WARNING! Your password will be stored unencrypted in /home/username/.docker/config.json.
 Configure a credential helper to remove this warning. See
 https://docs.docker.com/engine/reference/commandline/login/#credentials-store
+Login Succeeded
+```
+
+Sample Actual Output:
+```
+docker login nvcr.io
+Username: $oauthtoken
+Password: 
+WARNING! Your password will be stored unencrypted in /home/cduarte/.docker/config.json.
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/engine/reference/commandline/login/#credential-stores
+
 Login Succeeded
 ```
 
