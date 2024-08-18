@@ -163,7 +163,7 @@ Run docker build script:
 ./docker_build.sh
 ```
 
-**Note**: This build will take ~20 mins. It includes all the package installs from the root `README.md` (e.g., ROS1, Gazebo, TMC Software Install, and NVIDIA Isaac Sim). Add or remove elements from the `Dockerfile` as needed.
+**Note**: This build will take ~30 mins. It includes all the package installs from the root `README.md` (e.g., ROS1, Gazebo, TMC Software Install, and NVIDIA Isaac Sim). Add or remove elements from the `Dockerfile` as needed.
 
 Actual example build time:
 ```
@@ -188,6 +188,11 @@ Run `firefox.sh` to open a firefox GUI instance in the docker container.
 `isaac-sim` is a symbolic link to NVIDIA Isaac Sim installation directory. 
 
 `usr_data` is a mounted volume from the host environment to the docker container for persistent data (effectively, this is where all your data will be stored in between one `./docker_run.sh` and another).
+
+Sample Run:
+```
+./isaac-sim/python.sh ./isaac-sim/standalone_examples/api/omni.isaac.franka/pick_place.py
+```
 
 To exit docker container tty:
 ```
