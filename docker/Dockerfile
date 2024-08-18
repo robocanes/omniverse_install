@@ -198,6 +198,65 @@ ENV LANG=en_US.UTF-8
 ENV LANGUAGE=en_US:en
 ENV LC_ALL=en_US.UTF-8
 
+# ------------------------------------------------------------------------
+# Install custom packages/software here
+
+# TMC Software Setup
+
+RUN apt-get -y update && apt-get -y upgrade && apt-get -y autoremove
+
+RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
+RUN apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
+
+RUN apt-get -y update && apt-get -y upgrade && apt-get -y autoremove
+
+RUN apt-get -y install \
+    ros-noetic-desktop-full \
+    ros-noetic-moveit \
+    ros-noetic-panda-moveit-config \
+    ros-noetic-franka-hw \
+    libgflags-dev \
+    ros-noetic-rviz-imu-plugin \
+    ros-noetic-map-server \
+    ros-noetic-dwa-local-planner \
+    ros-noetic-move-base \
+    python3-rosdep \
+    python3-rosinstall \
+    python3-rosinstall-generator \
+    python3-wstool \
+    ros-noetic-ros-numpy
+
+RUN apt-get -y clean && apt-get -y autoremove && rm -rf /var/lib/apt/lists/*
+
+RUN rosdep init
+RUN rosdep update
+
+RUN apt-get -y update && apt-get -y upgrade && apt-get -y autoremove
+
+RUN sh -c 'echo "deb [arch=amd64] https://hsr-user:jD3k4G2e@packages.hsr.io/ros/ubuntu `lsb_release -cs` main" > /etc/apt/sources.list.d/tmc.list'
+RUN sh -c 'echo "deb [arch=amd64] https://hsr-user:jD3k4G2e@packages.hsr.io/tmc/ubuntu `lsb_release -cs` multiverse main" >> /etc/apt/sources.list.d/tmc.list'
+RUN sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_release -cs` main" > /etc/apt/sources.list.d/gazebo-stable.list'
+RUN wget https://hsr-user:jD3k4G2e@packages.hsr.io/tmc.key -O - | sudo apt-key add -
+RUN wget https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc -O - | sudo apt-key add -
+RUN wget https://packages.osrfoundation.org/gazebo.key -O - | sudo apt-key add -
+RUN sh -c 'mkdir -p /etc/apt/auth.conf.d'
+RUN sh -c '/bin/echo -e "machine packages.hsr.io\nlogin hsr-user\npassword jD3k4G2e" >/etc/apt/auth.conf.d/auth.conf'
+RUN sh -c '/bin/echo -e "Package: ros-noetic-laser-ortho-projector\nPin: version 0.3.3*\nPin-Priority: 1001\n\nPackage: ros-noetic-laser-scan-matcher\nPin: version 0.3.3*\nPin-Priority: 1001\n\nPackage: ros-noetic-laser-scan-sparsifier\nPin: version 0.3.3*\nPin-Priority: 1001\n\nPackage: ros-noetic-laser-scan-splitter\nPin: version 0.3.3*\nPin-Priority: 1001\n\nPackage: ros-noetic-ncd-parser\nPin: version 0.3.3*\nPin-Priority: 1001\n\nPackage: ros-noetic-polar-scan-matcher\nPin: version 0.3.3*\nPin-Priority: 1001\n\nPackage: ros-noetic-scan-to-cloud-converter\nPin: version 0.3.3*\nPin-Priority: 1001\n\nPackage: ros-noetic-scan-tools\nPin: version 0.3.3*\nPin-Priority: 1001" > /etc/apt/preferences'
+
+RUN apt-get -y update && apt-get -y upgrade && apt-get -y autoremove
+
+RUN apt-get install -y ros-noetic-tmc-desktop-full
+
+RUN apt-get -y clean && apt-get -y autoremove && rm -rf /var/lib/apt/lists/*
+
+# Isaac Sim Dependencies
+RUN ln -s /isaac-sim ${WORK_DIR}/isaac-sim
+RUN ${WORK_DIR}/isaac-sim/python.sh -m pip install rospkg
+
+# ------------------------------------------------------------------------
+
+ENV DISPLAY="${DISPLAY}"
+
 # Set the timezone to avoid prompts
 RUN ln -fs /usr/share/zoneinfo/America/New_York /etc/localtime && dpkg-reconfigure --frontend noninteractive tzdata
 
@@ -205,6 +264,15 @@ RUN ln -fs /usr/share/zoneinfo/America/New_York /etc/localtime && dpkg-reconfigu
 RUN useradd -m ubuntu
 RUN echo "ubuntu:ubuntu" | chpasswd
 RUN adduser ubuntu sudo
+
+# ------------------------------------------------------------------------
+# TMC ROS bashrc
+COPY .bashrc /root/.bashrc
+RUN chown root:root /root/.bashrc
+
+COPY .bashrc /home/ubuntu/.bashrc
+RUN chown ubuntu:ubuntu /home/ubuntu/.bashrc
+# ------------------------------------------------------------------------
 
 # Copy the startup script into the container
 COPY scripts/code.sh ${WORK_DIR}
@@ -218,6 +286,5 @@ RUN chmod +x ${WORK_DIR}/firefox.sh
 COPY scripts/entrypoint.sh ${WORK_DIR}
 RUN chmod +x ${WORK_DIR}/entrypoint.sh
 
-RUN ln -s /isaac-sim ${WORK_DIR}/isaac-sim
 
 ENTRYPOINT /root/entrypoint.sh
