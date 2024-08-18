@@ -4,6 +4,8 @@ Author: Christopher Duarte
 
 - Docker and NVIDIA Container Install: https://docs.omniverse.nvidia.com/isaacsim/latest/installation/install_container.html
 
+- OSRF rocker: https://github.com/osrf/rocker
+
 # Dependency Packages
 
 ```
@@ -108,6 +110,54 @@ Verify NVIDIA Container Toolkit:
 docker run --rm --runtime=nvidia --gpus all ubuntu nvidia-smi
 ```
 
+## Install OSRF rocker
+
 ## Omniverse Isaac Sim Container Deployment
 
-1. Generate ![NGC API Key](https://docs.nvidia.com/ngc/ngc-overview/index.html#generating-api-key).
+Generate [NGC API Key](https://docs.nvidia.com/ngc/ngc-overview/index.html#generating-api-key).
+
+Login to NGC before pulling Isaac Sim container.
+```
+docker login nvcr.io
+```
+Sample Output:
+```
+Username: $oauthtoken
+Password: <Your NGC API Key>
+WARNING! Your password will be stored unencrypted in /home/username/.docker/config.json.
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/engine/reference/commandline/login/#credentials-store
+Login Succeeded
+```
+
+Go to `docker` dir:
+```
+cd ./docker
+```
+
+Run docker build script:
+```
+./docker_build.sh
+```
+
+**Note**: This build will take ~20 mins. It includes all the package installs from the root `README.md` (e.g., ROS1, Gazebo, TMC Software Install, and NVIDIA Isaac Sim). Add or remove elements from the `Dockerfile` as needed.
+
+Run docker run script:
+```
+./docker_run.sh
+```
+
+This will provide a clean tty to interact with the docker container. From here, you are, by default, set as user `root` with several elements in the `HOME` directory:
+```
+root@923ff36ee164:~# ls
+code.sh  Documents  entrypoint.sh  firefox.sh  isaac-sim  usr_data
+```
+
+Run `code.sh` to open a vscode GUI instance in the docker container. Run `firefox.sh` to open a firefox GUI instance in the docker container. `isaac-sim` is a symbolic link to NVIDIA Isaac Sim installation directory. `usr_data` is a mounted volume from the host environment to the docker container for persistent data (effectively, this is where all your data will be stored in between one `./docker_run.sh` and another)
+
+To exit docker container tty:
+```
+exit
+```
+
+
