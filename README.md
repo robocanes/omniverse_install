@@ -184,6 +184,19 @@ sudo apt install python3-rosdep python3-rosinstall python3-rosinstall-generator 
 sudo apt install ros-noetic-ros-numpy -y
 ```
 
+6. Source every bash terminal you use ROS in.
+```
+echo "source /opt/ros/noetic/setup.bash" >> ~/.bashrc
+source ~/.bashrc
+```
+
+7. Initialize rosdep
+```
+sudo apt install python3-rosdep
+sudo rosdep init
+rosdep update
+```
+
 ## Install TMC HSR Software
 
 Adapted from [hsr.io](https://docs.hsr.io/hsrb_user_manual_en/howto/pc_install.html#id2) hsrb user manual.
