@@ -498,19 +498,19 @@ Example Run:
 Default location install for NVIDIA Isaac Sim: 
 
 ```
-/home/local/csc398/local/share/ov/pkg/isaac-sim-2023.1.1
+/home/local/csc398/.local/share/ov/pkg/isaac-sim-2023.1.1
 ```
 
 Default location install for NVIDIA nucleus service:
 
 ```
-/home/local/csc398/local/share/ov/pkg/nucleus-workstation-2023.2.3
+/home/local/csc398/.local/share/ov/pkg/nucleus-workstation-2023.2.3
 ```
 
 
 Go to NVIDIA Isaac Sim root:
 ```
-cd /home/local/csc398/local/share/ov/pkg/isaac-sim-2023.1.1
+cd /home/local/csc398/.local/share/ov/pkg/isaac-sim-2023.1.1
 ```
 
 Install package dependencies:
