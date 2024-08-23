@@ -85,6 +85,11 @@ Verify Docker:
 docker run hello-world
 ```
 
+Reboot:
+```
+sudo reboot
+```
+
 ## Install NVIDIA Container Toolkit
 
 Configure repository:
