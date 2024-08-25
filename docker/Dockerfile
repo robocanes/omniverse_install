@@ -187,9 +187,7 @@ RUN install -D -o root -g root -m 644 packages.microsoft.gpg /etc/apt/keyrings/p
 RUN echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" |sudo tee /etc/apt/sources.list.d/vscode.list > /dev/null
 RUN rm -f packages.microsoft.gpg
 RUN apt-get -y install apt-transport-https
-RUN apt-get -y update
-RUN apt-get -y upgrade
-RUN apt-get -y autoremove
+RUN apt-get -y update && apt-get -y upgrade && apt-get -y autoremove
 RUN apt-get install code
 
 # Set up the locale and timezone
@@ -201,7 +199,7 @@ ENV LC_ALL=en_US.UTF-8
 # ------------------------------------------------------------------------
 # Install custom packages/software here
 
-# TMC Software Setup
+# ROS Software Setup
 
 RUN apt-get -y update && apt-get -y upgrade && apt-get -y autoremove
 
@@ -231,27 +229,32 @@ RUN apt-get -y clean && apt-get -y autoremove && rm -rf /var/lib/apt/lists/*
 RUN rosdep init
 RUN rosdep update
 
-RUN apt-get -y update && apt-get -y upgrade && apt-get -y autoremove
+# TMC Software Setup
 
-RUN sh -c 'echo "deb [arch=amd64] https://hsr-user:jD3k4G2e@packages.hsr.io/ros/ubuntu `lsb_release -cs` main" > /etc/apt/sources.list.d/tmc.list'
-RUN sh -c 'echo "deb [arch=amd64] https://hsr-user:jD3k4G2e@packages.hsr.io/tmc/ubuntu `lsb_release -cs` multiverse main" >> /etc/apt/sources.list.d/tmc.list'
-RUN sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_release -cs` main" > /etc/apt/sources.list.d/gazebo-stable.list'
-RUN wget https://hsr-user:jD3k4G2e@packages.hsr.io/tmc.key -O - | sudo apt-key add -
-RUN wget https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc -O - | sudo apt-key add -
-RUN wget https://packages.osrfoundation.org/gazebo.key -O - | sudo apt-key add -
-RUN sh -c 'mkdir -p /etc/apt/auth.conf.d'
-RUN sh -c '/bin/echo -e "machine packages.hsr.io\nlogin hsr-user\npassword jD3k4G2e" >/etc/apt/auth.conf.d/auth.conf'
-RUN sh -c '/bin/echo -e "Package: ros-noetic-laser-ortho-projector\nPin: version 0.3.3*\nPin-Priority: 1001\n\nPackage: ros-noetic-laser-scan-matcher\nPin: version 0.3.3*\nPin-Priority: 1001\n\nPackage: ros-noetic-laser-scan-sparsifier\nPin: version 0.3.3*\nPin-Priority: 1001\n\nPackage: ros-noetic-laser-scan-splitter\nPin: version 0.3.3*\nPin-Priority: 1001\n\nPackage: ros-noetic-ncd-parser\nPin: version 0.3.3*\nPin-Priority: 1001\n\nPackage: ros-noetic-polar-scan-matcher\nPin: version 0.3.3*\nPin-Priority: 1001\n\nPackage: ros-noetic-scan-to-cloud-converter\nPin: version 0.3.3*\nPin-Priority: 1001\n\nPackage: ros-noetic-scan-tools\nPin: version 0.3.3*\nPin-Priority: 1001" > /etc/apt/preferences'
+# RUN apt-get -y update && apt-get -y upgrade && apt-get -y autoremove
 
-RUN apt-get -y update && apt-get -y upgrade && apt-get -y autoremove
+# RUN sh -c 'echo "deb [arch=amd64] https://hsr-user:jD3k4G2e@packages.hsr.io/ros/ubuntu `lsb_release -cs` main" > /etc/apt/sources.list.d/tmc.list'
+# RUN sh -c 'echo "deb [arch=amd64] https://hsr-user:jD3k4G2e@packages.hsr.io/tmc/ubuntu `lsb_release -cs` multiverse main" >> /etc/apt/sources.list.d/tmc.list'
+# RUN sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_release -cs` main" > /etc/apt/sources.list.d/gazebo-stable.list'
+# RUN wget https://hsr-user:jD3k4G2e@packages.hsr.io/tmc.key -O - | sudo apt-key add -
+# RUN wget https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc -O - | sudo apt-key add -
+# RUN wget https://packages.osrfoundation.org/gazebo.key -O - | sudo apt-key add -
+# RUN sh -c 'mkdir -p /etc/apt/auth.conf.d'
+# RUN sh -c '/bin/echo -e "machine packages.hsr.io\nlogin hsr-user\npassword jD3k4G2e" >/etc/apt/auth.conf.d/auth.conf'
+# RUN sh -c '/bin/echo -e "Package: ros-noetic-laser-ortho-projector\nPin: version 0.3.3*\nPin-Priority: 1001\n\nPackage: ros-noetic-laser-scan-matcher\nPin: version 0.3.3*\nPin-Priority: 1001\n\nPackage: ros-noetic-laser-scan-sparsifier\nPin: version 0.3.3*\nPin-Priority: 1001\n\nPackage: ros-noetic-laser-scan-splitter\nPin: version 0.3.3*\nPin-Priority: 1001\n\nPackage: ros-noetic-ncd-parser\nPin: version 0.3.3*\nPin-Priority: 1001\n\nPackage: ros-noetic-polar-scan-matcher\nPin: version 0.3.3*\nPin-Priority: 1001\n\nPackage: ros-noetic-scan-to-cloud-converter\nPin: version 0.3.3*\nPin-Priority: 1001\n\nPackage: ros-noetic-scan-tools\nPin: version 0.3.3*\nPin-Priority: 1001" > /etc/apt/preferences'
 
-RUN apt-get install -y ros-noetic-tmc-desktop-full
+# RUN apt-get -y update && apt-get -y upgrade && apt-get -y autoremove
 
-RUN apt-get -y clean && apt-get -y autoremove && rm -rf /var/lib/apt/lists/*
+# RUN apt-get install -y ros-noetic-tmc-desktop-full
+
+# RUN apt-get -y clean && apt-get -y autoremove && rm -rf /var/lib/apt/lists/*
 
 # Isaac Sim Dependencies
 RUN ln -s /isaac-sim ${WORK_DIR}/isaac-sim
 RUN ${WORK_DIR}/isaac-sim/python.sh -m pip install rospkg
+
+# Nucleus Workstation Install
+COPY nucleus/ws/nucleus-workstation-2023.2.3 /nucleus-ws
 
 # ------------------------------------------------------------------------
 

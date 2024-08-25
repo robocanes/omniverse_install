@@ -1,6 +1,6 @@
 # rocker --nvidia --x11 \
 # --env="ACCEPT_EULA=Y" \
-# --env="OMNI_SERVER=omniverse://127.0.0.1/NVIDIA/Assets/Isaac/4.1" \
+# --env="OMNI_SERVER=omniverse://localhost/NVIDIA/Assets/Isaac/2023.1.1" \
 # --network=host \
 # --volume="./usr_persist_data/root/usr_data:/root/usr_data:rw" \
 # --volume="./isaac-sim-data/cache/kit:/isaac-sim/kit/cache/Kit:rw" \
