@@ -5,6 +5,8 @@
 
 chown -R root:root /tmp
 
+python3 /root/nucleus_server_login.py
+
 clear
 
 exec /bin/bash

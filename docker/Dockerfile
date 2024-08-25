@@ -190,6 +190,9 @@ RUN apt-get -y install apt-transport-https
 RUN apt-get -y update && apt-get -y upgrade && apt-get -y autoremove
 RUN apt-get install code
 
+# Pip packages
+RUN pip install selenium
+
 # Set up the locale and timezone
 RUN locale-gen en_US.UTF-8
 ENV LANG=en_US.UTF-8
@@ -289,5 +292,6 @@ RUN chmod +x ${WORK_DIR}/firefox.sh
 COPY scripts/entrypoint.sh ${WORK_DIR}
 RUN chmod +x ${WORK_DIR}/entrypoint.sh
 
+COPY scripts/nucleus_server_login.py ${WORK_DIR}
 
 ENTRYPOINT /root/entrypoint.sh
