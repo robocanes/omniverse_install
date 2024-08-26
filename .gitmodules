@@ -1,0 +1,3 @@
+[submodule "docker/isaac_sim_install"]
+	path = docker/isaac_sim_install
+	url = https://github.com/robocanes/isaac_sim_install.git
