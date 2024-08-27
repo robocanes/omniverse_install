@@ -1,0 +1,1 @@
+./docker_prepare.sh && ./docker_build.sh && ./docker_run.sh

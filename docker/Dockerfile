@@ -48,7 +48,7 @@ ARG CUDA_VERSION=11.4.2
 ARG ISAACSIM_VERSION=2023.1.0
 
 # https://catalog.ngc.nvidia.com/orgs/nvidia/containers/isaac-sim
-FROM nvcr.io/nvidia/isaac-sim:${ISAACSIM_VERSION} AS isaac-sim
+# FROM nvcr.io/nvidia/isaac-sim:${ISAACSIM_VERSION} AS isaac-sim
 
 # https://catalog.ngc.nvidia.com/orgs/nvidia/containers/cudagl
 FROM nvidia/cudagl:${CUDA_VERSION}-base-${BASE_DIST}
@@ -114,16 +114,22 @@ ENV NVIDIA_VISIBLE_DEVICES=all NVIDIA_DRIVER_CAPABILITIES=all
 ENV MIN_DRIVER_VERSION 525.60.11
 
 # Copy Isaac Sim files
-COPY --from=isaac-sim /isaac-sim /isaac-sim
-RUN mkdir -p /root/.nvidia-omniverse/config
-COPY --from=isaac-sim /root/.nvidia-omniverse/config /root/.nvidia-omniverse/config
-COPY --from=isaac-sim /etc/vulkan/icd.d/nvidia_icd.json /etc/vulkan/icd.d/nvidia_icd.json
-COPY --from=isaac-sim /etc/vulkan/icd.d/nvidia_icd.json /etc/vulkan/implicit_layer.d/nvidia_layers.json
+# COPY --from=isaac-sim /isaac-sim /isaac-sim
+# RUN mkdir -p /root/.nvidia-omniverse/config
+# COPY --from=isaac-sim /root/.nvidia-omniverse/config /root/.nvidia-omniverse/config
+
+# COPY --from=isaac-sim /etc/vulkan/icd.d/nvidia_icd.json /etc/vulkan/icd.d/nvidia_icd.json
+# COPY --from=isaac-sim /etc/vulkan/icd.d/nvidia_icd.json /etc/vulkan/implicit_layer.d/nvidia_layers.json
+
+COPY vulkan_configs/nvidia_icd.json /etc/vulkan/icd.d/nvidia_icd.json
+COPY vulkan_configs/nvidia_icd.json /etc/vulkan/implicit_layer.d/nvidia_layers.json
+
+# COPY isaac_sim_install/isaac_sim/launcher/isaac-sim-2023.1.1 /root/isaac-sim-2023.1.1
 
 # WORKDIR /isaac-sim
 
 # Add symlink
-RUN ln -s exts/omni.isaac.examples/omni/isaac/examples extension_examples
+# RUN ln -s exts/omni.isaac.examples/omni/isaac/examples extension_examples
 
 # Default entrypoint to launch headless with streaming
 # ENTRYPOINT /isaac-sim/runheadless.native.sh
@@ -253,11 +259,11 @@ RUN rosdep update
 # RUN apt-get -y clean && apt-get -y autoremove && rm -rf /var/lib/apt/lists/*
 
 # Isaac Sim Dependencies
-RUN ln -s /isaac-sim ${WORK_DIR}/isaac-sim
-RUN ${WORK_DIR}/isaac-sim/python.sh -m pip install rospkg
+# RUN ln -s /isaac-sim ${WORK_DIR}/isaac-sim
+# RUN ${WORK_DIR}/isaac-sim/python.sh -m pip install rospkg
 
 # Nucleus Workstation Install
-COPY nucleus/ws/nucleus-workstation-2023.2.3 /nucleus-ws
+# COPY nucleus/ws/nucleus-workstation-2023.2.3 /nucleus-ws
 
 # ------------------------------------------------------------------------
 
@@ -273,25 +279,25 @@ RUN adduser ubuntu sudo
 
 # ------------------------------------------------------------------------
 # TMC ROS bashrc
-COPY .bashrc /root/.bashrc
-RUN chown root:root /root/.bashrc
+# COPY .bashrc /root/.bashrc
+# RUN chown root:root /root/.bashrc
 
-COPY .bashrc /home/ubuntu/.bashrc
-RUN chown ubuntu:ubuntu /home/ubuntu/.bashrc
+# COPY .bashrc /home/ubuntu/.bashrc
+# RUN chown ubuntu:ubuntu /home/ubuntu/.bashrc
 # ------------------------------------------------------------------------
 
 # Copy the startup script into the container
-COPY scripts/code.sh ${WORK_DIR}
-COPY scripts/firefox.sh ${WORK_DIR}
+# COPY scripts/code.sh ${WORK_DIR}
+# COPY scripts/firefox.sh ${WORK_DIR}
 
 # Ensure the script is executable
-RUN chmod +x ${WORK_DIR}/code.sh
-RUN chmod +x ${WORK_DIR}/firefox.sh
+# RUN chmod +x ${WORK_DIR}/code.sh
+# RUN chmod +x ${WORK_DIR}/firefox.sh
 
 # Chris Startup cmds
-COPY scripts/entrypoint.sh ${WORK_DIR}
-RUN chmod +x ${WORK_DIR}/entrypoint.sh
+# COPY scripts/entrypoint.sh ${WORK_DIR}
+# RUN chmod +x ${WORK_DIR}/entrypoint.sh
 
-COPY scripts/nucleus_server_login.py ${WORK_DIR}
+# COPY scripts/nucleus_server_login.py ${WORK_DIR}
 
 ENTRYPOINT /root/entrypoint.sh
