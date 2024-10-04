@@ -17,8 +17,14 @@ Install ubuntu recommended drivers:
 ```
 sudo add-apt-repository ppa:graphics-drivers/ppa
 sudo apt update
-sudo ubuntu-drivers install
+sudo ubuntu-drivers install nvidia:550 
 ```
+
+*Note: Future nvidia drivers after 550 may or might not work. The following command shows available drivers via ubuntu:
+```
+sudo ubuntu-drivers list --gpgpu
+```
+
 ```
 sudo reboot
 ```
